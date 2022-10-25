@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     public float fallSpeed = 200f;
     private bool falling = false;
     private bool jumping = false;
+    private bool wallJump = false;
+    private bool wallJumpDelay = false;
     private Rigidbody playerBody;
     Camera mainCamera;
 
@@ -49,12 +51,18 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
+        if (Input.GetKeyDown(KeyCode.Space) && !falling && jumping && wallJump && !wallJumpDelay)
+        {
+            playerBody.AddForce(transform.up * 2500);
+            Debug.Log("Walljump");
+            StartCoroutine(WallJumpCheck());
+        }
         if (Input.GetKeyDown(KeyCode.Space) && !falling && !jumping)
         {
             playerBody.AddForce(transform.up * 2500);
             jumping = true;
         }
-         if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
             {
@@ -66,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
         {
             speed = 100f;
         }
+
 
 
     }
@@ -87,7 +96,6 @@ public class PlayerMovement : MonoBehaviour
         {
             playerBody.AddForce(transform.forward * -speed);
         }
-
          if (playerBody.velocity.y < -0.1)
         {
             jumping = false;
@@ -102,5 +110,27 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Wall")
+        {
+            wallJump = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Wall")
+        {
+            wallJump = false;
+        }
+    }
+    
+    IEnumerator WallJumpCheck()
+    {
+        wallJumpDelay = true;
+        yield return new WaitForSeconds(.5f);
+        wallJumpDelay = false;
     }
 }
