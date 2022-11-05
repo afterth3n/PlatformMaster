@@ -130,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator WallJumpCheck()
     {
         wallJumpDelay = true;
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.4f);
         wallJumpDelay = false;
     }
 }
