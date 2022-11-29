@@ -19,8 +19,12 @@ public class CoinDestroy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        coinScript = other.gameObject.GetComponent<CoinScript>();
-        coinScript.AddCoin(1);
-        Destroy(gameObject);
+        if (other.gameObject.tag == "Player" && !other.isTrigger)
+        {
+            coinScript = other.gameObject.GetComponent<CoinScript>();
+            coinScript.AddCoin(1);
+            Destroy(gameObject);
+        }
     }
+
 }

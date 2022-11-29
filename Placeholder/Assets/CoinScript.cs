@@ -10,20 +10,12 @@ public class CoinScript : MonoBehaviour
     public void AddCoin(int amount)
     {
         coins += amount;
-        Debug.Log(coins);
         coinsText.text = "Coins: " + coins;
         return;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public int CheckCoins()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        return coins;
     }
 }
