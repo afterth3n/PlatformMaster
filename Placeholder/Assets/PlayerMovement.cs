@@ -30,26 +30,12 @@ public class PlayerMovement : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
         }
 
-        if (Input.GetAxis("Mouse X") < 0)
-        {
-            transform.Rotate(0, (Input.GetAxis("Mouse X")) * Time.deltaTime * msense, 0);
+        transform.Rotate(0, (Input.GetAxis("Mouse X")) * Time.deltaTime * msense, 0);
 
-        }
-        if (Input.GetAxis("Mouse X") > 0)
-        {
-            transform.Rotate(0, (Input.GetAxis("Mouse X")) * Time.deltaTime * msense, 0);
-
-        }
-        if (Input.GetAxis("Mouse Y") > 0)
-        {
-            mainCamera.transform.Rotate(-(Input.GetAxis("Mouse Y")) * Time.deltaTime * msense, 0, 0);
-
-        }
-        if (Input.GetAxis("Mouse Y") < 0)
-        {
-            mainCamera.transform.Rotate(-(Input.GetAxis("Mouse Y")) * Time.deltaTime * msense, 0, 0);
-
-        }
+        mainCamera.transform.Rotate(-(Input.GetAxis("Mouse Y")) * Time.deltaTime * msense, 0, 0);
+        //"mainCamera.transform.rotation.x," before Mathf.Clamp
+        
+        //mainCamera.transform.localRotation = Quaternion.Euler(new Vector3(Mathf.Clamp(mainCamera.transform.rotation.y, -90f, 90f), mainCamera.transform.rotation.z));
 
         if (Input.GetKeyDown(KeyCode.Space) && !falling && jumping && wallJump && !wallJumpDelay)
         {
