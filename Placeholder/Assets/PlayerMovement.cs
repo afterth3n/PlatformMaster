@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private float msense = 250f;
+    private float msense = 100f;
     public float speed = 50f;
     public float fallSpeed = 200f;
     private bool falling = false;
